@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Course — GeoJourney</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="my-course.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a class="navbar-logo" href="/">
+        <div class="navbar-logo-icon">🌍</div>
+        <span class="navbar-logo-text">Geo<span>Journey</span></span>
+      </a>
+      <div class="navbar-tabs">
+        <a class="nav-tab"        href="/">🌍 Home</a>
+        <a class="nav-tab"        href="/#achievements">🏅 Achievements</a>
+        <a class="nav-tab"        href="/#courses">📚 Courses</a>
+        <a class="nav-tab active" href="/my-course">🎓 My Course <span class="nav-dot" id="online-dot" style="display:none"></span></a>
+        <a class="nav-tab"        href="/#contact">✉️ Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── App container ── -->
+  <main id="app">
+    <!-- JS renders here -->
+    <div class="loader-wrap">
+      <div class="loader"></div>
+      <p style="color:#888;font-size:15px">Loading...</p>
+    </div>
+  </main>
+
+  <script src="my-course.js"></script>
+
+  <script>
+    // Show online dot when user is logged in
+    window.netlifyIdentity && window.netlifyIdentity.on('init', function(user) {
+      if (user) document.getElementById('online-dot').style.display = 'inline-block';
+    });
+    window.netlifyIdentity && window.netlifyIdentity.on('login', function() {
+      document.getElementById('online-dot').style.display = 'inline-block';
+    });
+    window.netlifyIdentity && window.netlifyIdentity.on('logout', function() {
+      document.getElementById('online-dot').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
