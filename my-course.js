@@ -1,8 +1,6 @@
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const SHEET_ID = '1NtBJDUtxx1QuJYu60TRGnAi4q5fJLioYqxYC_FAL7rk';
-const SHEET_URL = (sheet) =>
-  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheet}`;
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOdi7TRaM61Q33LljRm2JjN5m_wf5BcTjOOzXlCgRST5wjk1gXrErBDYDmc8PCOjzU/exec';
 
 // Course display definitions (for locked card UI)
 const ALL_COURSES = [
@@ -108,17 +106,17 @@ function getYouTubeId(url) {
 // ─── Fetch ────────────────────────────────────────────────────────────────────
 
 async function fetchStudentData(email) {
-  const res  = await fetch(SHEET_URL('Students'));
-  const rows = parseGSheetJSON(await res.text());
-  return rows.find(r => r.Email?.toLowerCase().trim() === email.toLowerCase().trim()) || null;
+  const res  = await fetch(`${APPS_SCRIPT_URL}?action=checkAccess&email=${encodeURIComponent(email)}`);
+  const data = await res.json();
+  if (!data.found) return null;
+  return { Email: email, Courses: data.courses.join(','), ExpireDate: data.expireDate };
 }
 
 async function fetchContent(courses) {
-  const res  = await fetch(SHEET_URL('Content'));
-  const rows = parseGSheetJSON(await res.text());
-  return rows.filter(r => courses.includes((r.Course || '').toLowerCase().trim()));
+  const res  = await fetch(`${APPS_SCRIPT_URL}?action=getContent&courses=${encodeURIComponent(courses.join(','))}`);
+  const rows = await res.json();
+  return rows;
 }
-
 // ─── Render helpers ───────────────────────────────────────────────────────────
 
 function el(tag, attrs = {}, ...children) {
