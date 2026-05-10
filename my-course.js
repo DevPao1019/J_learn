@@ -1,7 +1,6 @@
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOdi7TRaM61Q33LljRm2JjN5m_wf5BcTjOOzXlCgRST5wjk1gXrErBDYDmc8PCOjzU/exec';
-
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzHqthBGtaXFoDTEnF5kjBnO8HLV2BG3Y1FWRJcVOlaVx4ZWWjBXobZfFQItub1fW_/exec';
 // Course display definitions (for locked card UI)
 const ALL_COURSES = [
   {
